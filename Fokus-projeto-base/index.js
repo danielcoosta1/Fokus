@@ -8,21 +8,23 @@ const longoButton = document.querySelector(".app__card-button--longo");
 const imgBanner = document.querySelector(".app__image");
 
 focoButton.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "foco");
-    imgBanner.src = "./imagens/foco.png";
+    alterarContexto("foco");
     
     
 });
 
 curtoButton.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "descanso-curto");
-    imgBanner.src = "./imagens/descanso-curto.png";
+    alterarContexto("descanso-curto");
     
 });
 
 longoButton.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "descanso-longo");
-    imgBanner.src = "./imagens/descanso-longo.png";
+    alterarContexto("descanso-longo");
 });
 
 
+
+function alterarContexto(contexto){
+    html.setAttribute("data-contexto", contexto);
+    imgBanner.setAttribute("src", `./imagens/${contexto}.png`);
+}
