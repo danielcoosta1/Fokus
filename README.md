@@ -18,13 +18,15 @@
 
 <h2>:pencil2: Projeto:</h2>
 
-<p>:no_entry:  Na página focos há 3 formas de contexto:</br>
+<p>:arrow_right:  Na página focos há 3 formas de contexto:</br>
+</br>
 :heavy_check_mark: Foco;</br>
 :heavy_check_mark: Descanso Curto;</br>
 :heavy_check_mark: Descanso Longo;</br>
 
 </br>
-:no_entry: Cada uma com uma interface  diferente:</br>
+:arrow_right: Cada uma com uma interface  diferente:</br>
+</br>
 :camera: Foto de fundo  e título da página; </br>
 :alarm_clock: Contagem de um TIMER com diferentes tempos iniciais de contagem</br>
 :musical_keyboard: Possibilidade de tocar uma música de fundo ou não; 
