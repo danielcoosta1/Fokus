@@ -15,3 +15,6 @@
 <h2>Projeto Desktop</h2>
 <img src="https://github.com/danielcoosta1/Fokus/blob/main/Fokus-projeto-base/imagens/desktop1.PNG?raw=true"> 
 <img src="https://github.com/danielcoosta1/Fokus/blob/main/Fokus-projeto-base/imagens/desktop2.PNG?raw=true">
+
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&theme=blue-green">
