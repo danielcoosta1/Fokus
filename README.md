@@ -17,4 +17,4 @@
 <img src="https://github.com/danielcoosta1/Fokus/blob/main/Fokus-projeto-base/imagens/desktop2.PNG?raw=true">
 
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username={danielcoosta1}&theme=blue-green">
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?danielcoosta1={danielcoosta1}&theme=blue-green">
