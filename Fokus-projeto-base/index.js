@@ -36,7 +36,7 @@ musicaInput.addEventListener("change", ()=>{
 
 //TEMPORIZADOR
 
-let tempoDecorridoSegundos = 5;
+
 let intervaloId = null;
 
 //BOTÃO DO TIMER :  COMEÇAR/PAUSAR
@@ -48,7 +48,9 @@ const spanStartPauseBt = startPauseBt.querySelector("span");
 // //ELEMENTO QUE MOSTRA O TEMPO
 const tempoNaTela = document.querySelector("#timer");
 
+let tempoDecorridoSegundos;
 
+tempoNaTela.style.display = "none";
 ///////////////////////////////////
 
 // FUNÇOES E EVENTOS
@@ -56,22 +58,33 @@ const tempoNaTela = document.querySelector("#timer");
 //EVENTO DOS BOTOES- FOCO/DL/DC/
 
 focoButton.addEventListener("click", () => {
+    tempoNaTela.style.display = "block";
     alterarContexto("foco");
-
+    tempoDecorridoSegundos=1500;
+    mostrarTempo();
+    
 });
 
 curtoButton.addEventListener("click", () => {
+    tempoNaTela.style.display = "block";
     alterarContexto("descanso-curto");
+    tempoDecorridoSegundos=300;
+    mostrarTempo();
+    
 });
 
 longoButton.addEventListener("click", () => {
+    tempoNaTela.style.display = "block";
     alterarContexto("descanso-longo");
+    tempoDecorridoSegundos=900;
+    mostrarTempo();
+    
 });
 
 // FUNÇÃO ALTERAR CONTEXTO -  ESTILO DO BANNER E ESTILO DO BOTÃO SELECIONADO
 
 function alterarContexto(contexto){
-
+    
     // ALTERANDO O DATA-ATRIBUTE DO HTML
     html.setAttribute("data-contexto", contexto);
 
@@ -89,7 +102,6 @@ function alterarContexto(contexto){
             focoButton.classList.add("active");
             longoButton.classList.remove("active");
             curtoButton.classList.remove("active");
-            //ADICIONANDO O TIMER NA TELA
             break;
         
         case "descanso-curto":
@@ -100,7 +112,8 @@ function alterarContexto(contexto){
             focoButton.classList.remove("active");
             longoButton.classList.remove("active");
             curtoButton.classList.add("active");
-            //ADICIONANDO O TIMER NA TELA
+
+            tempoDecorridoSegundos = 300;
             break;
 
         default:
@@ -112,7 +125,8 @@ function alterarContexto(contexto){
             focoButton.classList.remove("active");
             longoButton.classList.add("active");
             curtoButton.classList.remove("active");
-            //ADICIONANDO O TIMER NA TELA
+            
+            tempoDecorridoSegundos = 900;
             break;
     }
 }
@@ -126,7 +140,7 @@ const contagemRegressiva = () => {
         return
     } else {
     tempoDecorridoSegundos -=1;
-    console.log(tempoDecorridoSegundos);
+    mostrarTempo();
 }
 }
 
@@ -151,6 +165,30 @@ function pausar(){
     
     clearInterval(intervaloId);
     intervaloId = null;
+}
+
+function mostrarTempo(){
+
+    const tempo = formatarTempoComDate(tempoDecorridoSegundos);
+    tempoNaTela.innerHTML = `${tempo}`;
+}
+
+mostrarTempo();
+
+function formatarTempoComDate(segundos) {
+        // Cria um objeto Date com base nos segundos (multiplicados por 1000 para milissegundos)
+        const data = new Date(segundos * 1000);
+
+        // Extrai os minutos e segundos
+        const minutos = data.getUTCMinutes(); // Usa getUTCMinutes() para evitar problemas de fuso horário
+        const segundosRestantes = data.getUTCSeconds();
+    
+        // Formata os minutos e segundos para sempre ter dois dígitos
+        const minutosFormatados = String(minutos).padStart(2, '0');
+        const segundosFormatados = String(segundosRestantes).padStart(2, '0');
+    
+        // Retorna o tempo formatado como "MM:SS"
+        return `${minutosFormatados}:${segundosFormatados}`;
 }
 
 
