@@ -14,12 +14,18 @@ const imgBanner = document.querySelector(".app__image");
 //TITULO PRINCIPAL
 const appTitulo = document.querySelector(".app__title");
 
-//MUSICA
+//MUSICA PRINCIPAL
 const musicaInput = document.querySelector("#alternar-musica");
 
 const musica = new Audio("./sons/luna-rise-part-one.mp3");
 musica.loop = true;
 
+// SONS DE PAUSAR E DAR PLAY
+const somPause = new Audio("./sons/pause.mp3");
+const somPlay = new Audio("./sons/play.wav");
+const somTempoFinalizado = new Audio("./sons/beep.mp3");
+
+//EVENTO DE COMEÇAR A MUSICA DE FUNDO PRINCIPAL
 musicaInput.addEventListener("change", ()=>{
     if(musica.paused){
         musica.play();
@@ -30,16 +36,17 @@ musicaInput.addEventListener("change", ()=>{
 
 //TEMPORIZADOR
 
-let tempoDecorridoSegundos = 60;
-
+let tempoDecorridoSegundos = 5;
+let intervaloId = null;
 
 //BOTÃO DO TIMER :  COMEÇAR/PAUSAR
 const startPauseBt = document.querySelector("#start-pause");
+
 const imagemStartPauseBt = startPauseBt.querySelector("img");
 const spanStartPauseBt = startPauseBt.querySelector("span");
 
-//ELEMENTO QUE MOSTRA O TEMPO DECORRIDO
-const tempo = document.querySelector("#timer");
+// //ELEMENTO QUE MOSTRA O TEMPO
+const tempoNaTela = document.querySelector("#timer");
 
 
 ///////////////////////////////////
@@ -71,7 +78,6 @@ function alterarContexto(contexto){
     // ALTERANDO A IMAGEM DE FUNDO
     imgBanner.setAttribute("src", `./imagens/${contexto}.png`);
     
-    
     // ALTERANDO O TITULO PRINCIPAL DA PAGINA e O BOTÃO ATIVADO
     switch (contexto) {
         case "foco":
@@ -83,12 +89,7 @@ function alterarContexto(contexto){
             focoButton.classList.add("active");
             longoButton.classList.remove("active");
             curtoButton.classList.remove("active");
-
             //ADICIONANDO O TIMER NA TELA
-            
-
-            
-            
             break;
         
         case "descanso-curto":
@@ -100,7 +101,6 @@ function alterarContexto(contexto){
             longoButton.classList.remove("active");
             curtoButton.classList.add("active");
             //ADICIONANDO O TIMER NA TELA
-           
             break;
 
         default:
@@ -113,44 +113,48 @@ function alterarContexto(contexto){
             longoButton.classList.add("active");
             curtoButton.classList.remove("active");
             //ADICIONANDO O TIMER NA TELA
-            
-
-            
             break;
     }
- 
 }
 
 //TIMER
-
-startPauseBt.addEventListener("click", ()=>{
-
-    
-    if (spanStartPauseBt.textContent === 'Começar') {
-        // Altera o texto para "Pausar"
-        spanStartPauseBt.textContent = 'Pausar';
-        // Altera o src da imagem para o ícone de pausa
-        imagemStartPauseBt.src = './imagens/pause.png';
-
-
-    } else {
-        // Altera o texto de volta para "Começar"
-       spanStartPauseBt.textContent = 'Começar';
-        // Altera o src da imagem de volta para o ícone de play
-       imagemStartPauseBt.src = './imagens/play_arrow.png';
-
-    }
-
-});
-
 const contagemRegressiva = () => {
-    setInterval(() => {
-        tempoDecorridoSegundos -= 1;
-    }, 1000);
-
-    setInterval(() => {
-        tempoDecorridoMinutos -=1;
-    },60000);
-
+    if(tempoDecorridoSegundos <=0){
+        somTempoFinalizado.play();
+        alert("TEMPO FINALIZADO");
+        pausar();
+        return
+    } else {
+    tempoDecorridoSegundos -=1;
+    console.log(tempoDecorridoSegundos);
 }
+}
+
+startPauseBt.addEventListener("click", iniciarOuPausar);
+
+function iniciarOuPausar(){
+    
+   if(intervaloId){
+        somPause.play();
+        spanStartPauseBt.textContent = 'Começa';
+        imagemStartPauseBt.src = './imagens/play_arrow.png';
+        pausar();
+        return
+   }
+    somPlay.play();
+    intervaloId =setInterval(contagemRegressiva,1000);
+    spanStartPauseBt.textContent = 'Pausar';
+    imagemStartPauseBt.src = './imagens/pause.png';
+}
+
+function pausar(){
+    
+    clearInterval(intervaloId);
+    intervaloId = null;
+}
+
+
+
+
+
 
